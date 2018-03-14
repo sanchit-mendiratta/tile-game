@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Jura', sans-serif;
+        }
+
+        .header {
+            background-color: coral;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #tileContainer {
+            display: grid;
+            grid-template-columns: 100px 100px 100px 100px 100px;
+            grid-gap: 10px;
+        }
+
+        .tile {
+            box-sizing: border-box;
+            border: 2px solid red;
+            background-color: chocolate;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* The animation code */
+
+        @keyframes blinker {
+            50% {
+                opacity: 0.8;
+                background-color: yellow;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .animateTile {
+            animation: blinker 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>TILE GAME</h1>
+        <br>
+    </div>
+    <h3>Score: </h3>
+    <div id="tileContainer"></div>
+</body>
+<script>
+    var iRows = 5;
+    var iColumns = 5;
+    var iCounter = 1;
+    var iScore = 0
+    for (var iIndex = 0; iIndex < iRows; iIndex++) {
+        for (var jIndex = 0; jIndex < iColumns; jIndex++) {
+            var oDiv = document.createElement("div");
+            oDiv.className = "tile";
+            oDiv.id = "tile" + iCounter;
+            oDiv.innerText = iCounter++;
+            var oContainer = document.getElementById("tileContainer");
+            oContainer.appendChild(oDiv);
+        }
+    }
+    var iRandomTileNumber = Math.floor(Math.random() * iRows * iColumns) + 1;
+    var sTileIdToHighlight = "tile" + iRandomTileNumber;
+    var oTileToHighlight = document.getElementById(sTileIdToHighlight);
+    oTileToHighlight.className = "animateTile";
+
+    oContainer.addEventListener("click", function(oEvent) {
+        var oTarget = oEvent.target;
+        var sTargetId = oTarget.id;
+        if(sTargetId === sTileIdToHighlight) {
+            iScore++;
+            document.querySelector("h3").innerText = "Score:" + iScore;
+        } else if (sTargetId !== sTileIdToHighlight) {
+            iScore--;
+            document.querySelector("h3").innerText = "Score:" + iScore;
+        }
+    });
+</script>
+
+</html>
