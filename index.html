@@ -76,17 +76,20 @@
     var iRandomTileNumber = Math.floor(Math.random() * iRows * iColumns) + 1;
     var sTileIdToHighlight = "tile" + iRandomTileNumber;
     var oTileToHighlight = document.getElementById(sTileIdToHighlight);
-    oTileToHighlight.className = "animateTile";
+    oTileToHighlight.className = oTileToHighlight.className + " animateTile";
 
-    oContainer.addEventListener("click", function(oEvent) {
+    oContainer.addEventListener("click", function (oEvent) {
+        debugger;
         var oTarget = oEvent.target;
         var sTargetId = oTarget.id;
-        if(sTargetId === sTileIdToHighlight) {
-            iScore++;
-            document.querySelector("h3").innerText = "Score:" + iScore;
-        } else if (sTargetId !== sTileIdToHighlight) {
-            iScore--;
-            document.querySelector("h3").innerText = "Score:" + iScore;
+        if (oTarget.className.indexOf("tile") !== -1) {
+            if (sTargetId === sTileIdToHighlight) {
+                iScore++;
+                document.querySelector("h3").innerText = "Score:" + iScore;
+            } else if (sTargetId !== sTileIdToHighlight) {
+                iScore--;
+                document.querySelector("h3").innerText = "Score:" + iScore;
+            }
         }
     });
 </script>
