@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
+    <title>Tile Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
     <style>
@@ -15,9 +14,13 @@
         .header {
             background-color: coral;
             text-align: center;
-            padding: 10px;
+            width: 100%;
         }
-
+        #mainContainer {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 10px;
+        }
         #tileContainer {
             display: grid;
             grid-template-columns: 100px 100px 100px 100px 100px;
@@ -30,6 +33,10 @@
             background-color: chocolate;
             width: 100px;
             height: 100px;
+        }
+
+        li {
+            line-height: 3em;
         }
 
         /* The animation code */
@@ -53,10 +60,20 @@
 <body>
     <div class="header">
         <h1>TILE GAME</h1>
-        <br>
     </div>
-    <h3>Score: </h3>
-    <div id="tileContainer"></div>
+    <h3>Score: 0</h3>
+    <div id="mainContainer">
+        <div id="tileContainer"></div>
+        <div id="instructionContainer">
+            <h2>Instructions:</h2>
+            <ul style="list-style-type:circle">
+                <li>Click on the Highlighted Tile to earn +1</li>
+                <li>Click on the Wrong Tile and earn -1</li>
+                <li>Try and reach the Maximum Score in 1 Minute!</li>
+            <ul>
+        </div>
+    </div>
+    
 </body>
 <script>
     var iRows = 5;
@@ -73,22 +90,27 @@
             oContainer.appendChild(oDiv);
         }
     }
+
     var iRandomTileNumber = Math.floor(Math.random() * iRows * iColumns) + 1;
     var sTileIdToHighlight = "tile" + iRandomTileNumber;
     var oTileToHighlight = document.getElementById(sTileIdToHighlight);
     oTileToHighlight.className = oTileToHighlight.className + " animateTile";
 
     oContainer.addEventListener("click", function (oEvent) {
-        debugger;
         var oTarget = oEvent.target;
         var sTargetId = oTarget.id;
         if (oTarget.className.indexOf("tile") !== -1) {
             if (sTargetId === sTileIdToHighlight) {
+                oTileToHighlight.className = "tile";
+                iRandomTileNumber = Math.floor(Math.random() * iRows * iColumns) + 1;
+                sTileIdToHighlight = "tile" + iRandomTileNumber;
+                oTileToHighlight = document.getElementById(sTileIdToHighlight);
+                oTileToHighlight.className = oTileToHighlight.className + " animateTile";
                 iScore++;
-                document.querySelector("h3").innerText = "Score:" + iScore;
+                document.querySelector("h3").innerText = "Score: " + iScore;
             } else if (sTargetId !== sTileIdToHighlight) {
                 iScore--;
-                document.querySelector("h3").innerText = "Score:" + iScore;
+                document.querySelector("h3").innerText = "Score: " + iScore;
             }
         }
     });
