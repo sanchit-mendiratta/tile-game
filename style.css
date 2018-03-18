@@ -1,0 +1,65 @@
+body {
+    font-family: 'Jura', sans-serif;
+}
+
+#container {
+    display: grid;
+    grid-template-rows: 6rem 4rem auto;
+    grid-gap: 10px;
+}
+
+#header {
+    background-color: coral;
+    text-align: center;
+}
+#scoreBoard {
+    will-change: transform;
+    background: black;
+    text-align: center;
+    padding-top: 15px;
+    color:white;
+    text-shadow: 1px 1px 10px #3399ff;
+}
+#scoreBoard:before{
+    content: "Score:";
+    font-size: 20px;
+  }
+#mainContainer {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: 600px auto;
+    grid-gap: 10px;
+}
+#tileContainer {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px;
+    grid-gap: 10px;
+}
+
+.tile {
+    box-sizing: border-box;
+    border: 2px solid red;
+    background-color: chocolate;
+    width: 100px;
+    height: 100px;
+}
+
+li {
+    line-height: 3em;
+}
+
+/* The animation code */
+
+@keyframes blinker {
+    50% {
+        opacity: 0.8;
+        background-color: yellow;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.animateTile {
+    animation: blinker 1s linear infinite;
+}
